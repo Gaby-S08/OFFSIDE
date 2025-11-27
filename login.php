@@ -26,7 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <section class="logo">
+    <img src="./Imagens/OFFSIDE - STREETWEAR (2).png"alt="Logo" >
+</section>
     <div class="container" style="width: 400px;">
+        <div class="login-header"> 
+   
         <h2>Login</h2>
         <form method="post" action="">
             <label for="usuario">Usuário:</label>

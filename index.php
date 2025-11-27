@@ -5,10 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Painel Principal</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container2">
         <h2>Bem-vindo, <?php echo $_SESSION['usuario']; ?></h2>
         <ul class="menu">
             <li><a href="cadastro_fornecedor.php">Cadastro de Fornecedores</a></li>

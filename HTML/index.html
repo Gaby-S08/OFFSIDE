@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>OFFSIDE STREETWEAR</title>
+
+    <!-- Ícone exibido na aba do navegador -->
+  <link rel="shortcut icon" href="../Imagens/logopreto.jpeg" type="image/x-icon">
+
+  <!-- Metadados para SEO -->
+  <meta name="description" content="OFFSIDE STREETWEAR - Vá Além. Vista OFFSIDE">
+  <meta name="keywords" content="streetwear, roupas, moda">
+
+
+  <!-- Estilos globais -->
+  <link rel="stylesheet" href="../css/style.css">
+  <!-- Estilos da página (index.html) -->
+  <link rel="stylesheet" href="../css/index.css">
+
+</head>
+
+<body>
+<!-- Cabeçalho -->
+<header class="cabecalho">
+  <div class="navegacao">
+    <div class="menu">
+      <a href="#">SOBRE NÓS</a>
+      <a href="#">COLEÇÕES</a>
+    </div>
+
+     <!-- Barra de pesquisa -->
+  <div class="buscar">
+    <form action="#" method="get" onsubmit="return false;">
+        <input type="text" id="campo-busca" name="q" placeholder="Pesquisar">
+        
+        <button type="button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+    </form>
+</div>
+
+    <!-- Símbolos -->
+         <!-- Carrinho Icone -->
+    <div class="cart-icon" id="cartButton" title="Abrir Carrinho">
+        <!-- Ícone Carrinho SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart"><circle cx="8" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M2.5 2h3.29l1.65 8.01a1 1 0 0 0 1 0.99h9.81a1 1 0 0 0 1-0.99L21.5 6"/></svg>
+    </div>
+    <!-- Dropdown Carrinho -->
+    <div class="cart-dropdown" id="cartDropdown">
+        <h4 style="margin: 0 0 10px 0;">Seu Carrinho</h4>
+        <div id="cartList">
+        </div>
+    </div>
+
+    <!-- LOGIN -->
+     <div class="simbolos">   
+      <a target="_blank"  href=http://localhost/offside-v2/login.php>
+      <img class="icones" src="../Imagens/iconamoon--profile-light.svg" alt="usuario">
+    </a>
+  </div>
+</header>
+
+<main>
+<!-- Principal -->
+  <section class="principal">
+     <!-- Foto destaque -->
+    <div class="destaque">
+    <img class="destaque-img" src="../Imagens/destaque (2).png" alt="destaque">
+    </div>
+  </section>
+
+  <section class="colecoes">
+  <h2>NOSSAS COLEÇÕES</h2>
+
+  <div class="colecoes-grid">
+    <div class="colecao-card">
+      <div class="colecao">
+        <img src="../Imagens/chamas.png" alt="Coleção Chamas">
+      </div>
+       <a href="/colecao-chamas" class="colecao-link">COLEÇÃO CHAMAS</a>
+    </div>
+
+    <div class="colecao-card">
+      <div class="colecao">
+        <img src="../Imagens/404.png" alt="Coleção 404">
+      </div>
+       <a href="/colecao-404" class="colecao-link">COLEÇÃO 404</a>
+    </div>
+
+    <div class="colecao-card">
+      <div class="colecao">
+        <img src="../Imagens/nevoa.png" alt="Coleção Névoa">
+      </div>
+        <a href="/colecao-nevoa" class="colecao-link">COLEÇÃO NÉVOA</a>
+    </div>
+  </div>
+</section>
+
+ <!-- SEÇÃO DO CARROSSEL -->
+
+<section class="section bg1">
+    <div class="container">
+        <h2>PRODUTOS</h2>
+        <div class="carousel-wrap">
+            <button class="btn" data-action="prev">❮</button>
+            <div class="carousel" id="carousel1">
+                <div class="item" data-id="p10" data-name="Baggy"><img src="../Imagens/conjunto baggy.png" alt="Img"><div class="caption">Conjunto Baggy</div><div class="item-actions"></div></div>
+                <div class="item" data-id="p11" data-name="Regata"><img src="../Imagens/regata.png" alt="Img"><div class="caption">Regata Oversized</div><div class="item-actions"></div></div>
+                <div class="item" data-id="p12" data-name="Jorts"><img src="../Imagens/jorts.png" alt="Img"><div class="caption">Jorts</div><div class="item-actions"></div></div>
+                <div class="item" data-id="p13" data-name="Regata Feminina"><img src="../Imagens/regata fem.png" alt="Img"><div class="caption">Regata feminina</div><div class="item-actions"></div></div>
+                <div class="item" data-id="p14" data-name="Cropped CHAMAS"><img src="../Imagens/cropped 1.png" alt="Img"><div class="caption">Cropped CHAMAS</div><div class="item-actions"></div></div>
+                <div class="item" data-id="p15" data-name="Cropped Preto"><img src="../Imagens/cropped 2.png" alt="Img"><div class="caption">Cropped Preto</div><div class="item-actions"></div></div>
+                <div class="item" data-id="p16" data-name="Boné OFFSIDE"><img src="../Imagens/bone.png" alt="Img"><div class="caption">Boné OFFSIDE</div><div class="item-actions"></div></div>
+            </div>
+            <button class="btn" data-action="next">❯</button>
+        </div>
+    </div>
+</section>
+
+<section class="section bg2">
+    <div class="container">
+        <div class="carousel-wrap">
+            <button class="btn" data-action="prev">❮</button>
+            <div class="carousel" id="carousel2">
+                <div class="item" data-id="a50" data-name="Moletom STREET"><img src="../Imagens/moletom street.png" alt="img"><div class="caption">Moletom STREET</div><div class="item-actions"></div></div>
+                <div class="item" data-id="a51" data-name="Calça Jeans Baggy"><img src="../Imagens/calça jeans baggy.png" alt="Img"><div class="caption">Calça Jeans Baggy</div><div class="item-actions"></div></div>
+                <div class="item" data-id="a52" data-name="Moletom Balaclava"><img src="../Imagens/moletom balaclava.png" alt="Img"><div class="caption">Moletom Balaclava</div><div class="item-actions"></div></div>
+                <div class="item" data-id="a53" data-name="Touca"><img src="../Imagens/touca.png" alt="Img"><div class="caption">Touca</div><div class="item-actions"></div></div>
+                <div class="item" data-id="a54" data-name="Cinto"><img src="../Imagens/cinto.png" alt="Img"><div class="caption">Cinto</div><div class="item-actions"></div></div>
+      
+            </div>
+            <button class="btn" data-action="next">❯</button>
+        </div>
+    </div>
+</section>
+
+<section class="section bg3">
+    <div class="container">
+        <div class="carousel-wrap">
+            <button class="btn" data-action="prev">❮</button>
+            <div class="carousel" id="carousel3">
+                <div class="item" data-id="b100" data-name="Camiseta Unmarked"><img src="../Imagens/camiseta unmarked.png" alt="Img"><div class="caption">Camiseta Unmarked</div><div class="item-actions"></div></div>
+                <div class="item" data-id="b103" data-name="Óculos escuro"><img src="../Imagens/oculos.png" alt="Img"><div class="caption">Óculos escuro</div><div class="item-actions"></div></div>
+                <div class="item" data-id="b101" data-name="Camiseta 404"><img src="../Imagens/camiseta404.png" alt="Img"><div class="caption">Camiseta 404</div><div class="item-actions"></div></div>
+                <div class="item" data-id="b102" data-name="Camiseta Light"><img src="../Imagens/camiseta light.png" alt="Img"><div class="caption">Camiseta Light</div><div class="item-actions"></div></div>
+                <div class="item" data-id="b104" data-name="Bon´404"><img src="../Imagens/Bone404.png" alt="Img"><div class="caption">Boné 404</div><div class="item-actions"></div></div>
+                <div class="item" data-id="b106" data-name="Cropped Azul"><img src="../Imagens/Croppedazul.png" alt="Img"><div class="caption">Cropped Azul</div><div class="item-actions"></div></div>
+                 </div>
+            <button class="btn" data-action="next">❯</button>
+        </div>
+    </div>
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
+  <!-- Seção com informações de contato e localização -->
+    <section class="loja">
+      <h2>Localização</h2>
+      <p>OFFSIDE STREETWEAR — Av. Industrial, 600<br>Santo André/SP</p>
+      <p>Telefone: <a href="tel:+55113220050">(11) 3220-0050</a> - 
+      E-mail: <a href="mailto:santoandre@sp.senai.br">santoandre@sp.senai.br</a></p>
+
+      <!-- Mapa incorporado do Google Maps -->
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.8399583442348!2d-46.54157838491561!3d-23.64573570942851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce43f1533399af%3A0x56e0725a3d209f25!2sAv.%20Santos%20Dumont%2C%20300%20-%20Vila%20Alda%2C%20Santo%20Andr%C3%A9%20-%20SP%2C%2009015-320!5e0!3m2!1spt-BR!2sbr!4v1665416075902!5m2!1spt-BR!2sbr" 
+        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>OFFSIDE STREETWEAR é um site fictício desenvolvido no Senai/Sesi © - Alguns Direitos Reservados - 2025</p>
+  </footer>
+
+</body>
+</html>
+
+</footer>
+
+<script src="../js/script.js"></script>

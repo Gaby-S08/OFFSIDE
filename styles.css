@@ -7,27 +7,196 @@
 
 /* Definindo variáveis para cores e fontes */
 :root {
-    --primary-color: #3498db;
-    --secondary-color: #2c3e50;
-    --background-color: #ecf0f1;
-    --text-color: #333;
+    --primary-color: rgb(0, 0, 0);
+    --secondary-color: #000000;
+    background-image: linear-gradient(130deg, #FFFF, #000000);
+    --text-color: #030303;
     --error-color: #e74c3c;
     --success-color: #2ecc71;
-    --font-family: 'Roboto', sans-serif;
+    --font-family: gotham;
 }
-
 /* Estilos globais */
 body {
-    font-family: var(--font-family);
-    background-color: var(--background-color);
+    font-family: gotham ;
     color: var(--text-color);
     line-height: 1.6;
 }
-
+section.logo {
+   align-items: center;
+   
+}
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    width: 250px; 
+    height: 900px;
+}
+
+   /* ========================================================= */
+/* 1. LAYOUT PRINCIPAL: Centraliza e Posiciona todo o Conteúdo */
+/* ========================================================= */
+body {
+    /* Gradiente e dimensões da tela (mantido) */
+    background: linear-gradient(
+        to bottom, 
+        #f5f5f5,
+        #aaaaaa, 
+        #333333, 
+        #000000
+    );
+    min-height: 100vh;
+    margin: 0;
+
+    /* FLEXBOX: Configurações de centralização */
+    display: flex;
+    flex-direction: column; /* Empilha Texto e Botões verticalmente */
+    align-items: center;    /* Centraliza o bloco (horizontalmente) */
+    
+    /* MUDANÇA PRINCIPAL: Alinha o conteúdo ao TOPO */
+    justify-content: flex-start; 
+    
+    /* MUDANÇA: Ajuste a margem superior para descer SÓ UM POUCO do topo */
+    padding-top: 100px; /* Adiciona espaço no topo da tela. Ajuste este valor. */
+}
+
+/* ========================================================= */
+/* 2. LAYOUT DOS BOTÕES: Empilhamento Vertical (Coluna) */
+/* ========================================================= */
+.menu-botoes {
+    /* Ativa o Flexbox para manipular APENAS os botões */
+    display: flex;
+    
+    /* MUDANÇA: Empilha os botões em coluna (um embaixo do outro) */
+    flex-direction: column; 
+    
+    /* Centraliza cada botão horizontalmente dentro do contêiner */
+    align-items: center; 
+    
+    /* Adiciona espaço vertical entre os botões */
+    gap: 15px; 
+    
+    /* Adiciona espaçamento entre o texto "Gabrielly" e os botões */
+    margin-top: 40px; 
+}
+
+/* ========================================================= */
+/* 3. AJUSTE DE OUTROS ELEMENTOS (Mantido) */
+/* ========================================================= */
+h1 {
+    text-align: center;
+    margin-top: 0; 
+}
+
+.botao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 50px; 
+    padding: 10px 15px; 
+}
+/* Modificando o .container (se o formulário estiver dentro dele) */
+.container {
+    max-width: 1200px; /* Mantém o limite máximo */
+    margin: 0 auto;    /* Mantém a centralização */
+    padding: 20px;
+    
+    /* MUDANÇA: Alarga a largura do contêiner para algo razoável (ex: 500px) */
+    width: 500px; 
+    
+    /* Nota: 'height: 900px' neste contêiner é muito alto.
+       Se a altura do formulário for menor, remova essa linha ou use 'min-height'. */
+    /* height: 900px; */ 
+}
+
+/* Modificando o 'form' (se ele for o bloco cinza do formulário) */
+form {
+    /* REMOVER: Este height: 900px força o formulário a ser muito longo, o que não é o ideal. */
+    /* height: 900px; */ 
+    
+    /* O 'margin: 0 auto;' é necessário para centralizar horizontalmente. 
+       Se o formulário estiver DENTRO de um .container centralizado, isso pode não ser necessário.
+       Se não estiver, adicione: */
+    /* margin: 0 auto 20px auto; */ 
+    
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+table {
+    /* Define uma largura para a tabela para que ela não fique muito estreita */
+    width: 80%; /* Ex: Ocupa 80% da largura do contêiner */
+    /* Garante que a tabela esteja centralizada se não for um item flex */
+    margin: 0 auto 20px auto; 
+    /* Outros estilos de tabela que você já tem: */
+    border-collapse: collapse;
+    /* ... */
+}
+/* Este contêiner deve ter a mesma largura da tabela */
+.acoes-listagem {
+    width: 80%; /* Deve ser o mesmo valor do 'width' da sua tabela */
+    
+    /* Centraliza o contêiner horizontalmente */
+    margin: 10px auto 0 auto;
+    
+    /* Alinha o conteúdo (o botão) à esquerda */
+    text-align: left;
+}
+
+.back-button {
+    /* Mantém o estilo do botão */
+    /* ... */
+}
+/* Tabela Base - Centraliza e define largura */
+table {
+    /* Define uma largura para que a tabela não ocupe 100% da tela, mas centralize */
+    width: 85%; 
+    /* Centraliza a tabela na horizontal */
+    margin: 40px auto 20px auto; 
+    border-collapse: collapse;
+    background-color: #fff; /* Fundo branco para as linhas de dados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra suave para destacar */
+    border-radius: 8px; /* Cantos levemente arredondados */
+    overflow: hidden; /* Garante que os cantos arredondados do cabeçalho sejam visíveis */
+}
+
+/* Cabeçalho (Linha de Títulos - ID, Nome, Ações, etc.) */
+th {
+    background-color: var(--secondary-color); /* Fundo preto (sua variável) */
+    color: #fff; /* Texto branco */
+    padding: 15px 12px;
+    text-align: left;
+    font-size: 14px;
+    letter-spacing: 0.5px; /* Espaçamento sutil para melhor leitura */
+    text-transform: uppercase;
+}
+/* Contêiner para o botão Voltar (deve ter a mesma largura da tabela) */
+.back-actions {
+    width: 85%; /* MESMA LARGURA DA TABELA */
+    margin: 20px auto 40px auto; /* Centraliza o contêiner e adiciona margens */
+    text-align: left; /* Alinha o conteúdo à esquerda */
+}
+
+/* Garante que o botão use essa configuração */
+.back-button {
+    /* ... seus estilos de botão ... */
+    display: inline-block;
+    margin: 0;
+}
+/* Contêiner para o botão Voltar (deve ter a mesma largura da tabela) */
+.back-actions {
+    width: 85%; /* MESMA LARGURA DA TABELA */
+    margin: 20px auto 40px auto; /* Centraliza o contêiner e adiciona margens */
+    text-align: left; /* Alinha o conteúdo à esquerda */
+}
+
+/* Garante que o botão use essa configuração */
+.back-button {
+    /* ... seus estilos de botão ... */
+    display: inline-block;
+    margin: 0;
 }
 
 /* Estilos para cabeçalhos */
@@ -39,7 +208,7 @@ h2 {
 
 /* Estilos para formulários */
 form {
-    background-color: #fff;
+   height: 900px;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
