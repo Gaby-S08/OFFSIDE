@@ -1,129 +1,145 @@
-// --- VARIÁVEIS GLOBAIS DE ESTADO ---
+// --- VARIÁVEIS GLOBAIS ---
 let cartItems = [];
-let favItems = [];
 
-// --- ELEMENTOS DO DOM ---
-const cartButton = document.getElementById("cartButton");
-const cartDropdown = document.getElementById("cartDropdown");
-const cartList = document.getElementById("cartList");
-
-const favButton = document.getElementById("favButton");
-const favDropdown = document.getElementById("favDropdown");
-const favList = document.getElementById("favList");
-
-// --- FUNÇÕES DE RENDERIZAÇÃO ---
-
-// Atualiza a lista de itens no dropdown do Carrinho
-function renderCart() {
-    if (!cartList) return; 
-    if (cartItems.length === 0) {
-        cartList.innerHTML = '<p style="text-align: center; color: #999;">Carrinho vazio.</p>';
-        return;
-    }
-
-    cartList.innerHTML = cartItems.map(item => `
-        <div class="dropdown-item">
-            <span>${item.name}</span>
-            <button class="remove-btn" data-id="${item.id}" data-type="cart">Remover</button>
-        </div>
-    `).join('');
-
-    // Adiciona listener para remover itens do carrinho
-    cartList.querySelectorAll('.remove-btn').forEach(btn => {
-        btn.addEventListener('click', removeItem);
-    });
-}
-
-// Atualiza a lista de itens no dropdown de Favoritos
-function renderFav() {
-    if (!favList) return;
-    if (favItems.length === 0) {
-        favList.innerHTML = '<p style="text-align: center; color: #999;">Ainda sem itens favoritos.</p>';
-        return;
-    }
-
-    favList.innerHTML = favItems.map(item => `
-        <div class="dropdown-item">
-            <span>${item.name}</span>
-            <button class="remove-btn" data-id="${item.id}" data-type="fav">Remover</button>
-        </div>
-    `).join('');
+// Aguarda o HTML carregar completamente
+document.addEventListener("DOMContentLoaded", function() {
     
-    // Adiciona listener para remover itens dos favoritos
-    favList.querySelectorAll('.remove-btn').forEach(btn => {
-        btn.addEventListener('click', removeItem);
-    });
-}
+    // --- MENU MOBILE (HAMBÚRGUER) ---
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const menuLinks = document.getElementById('menu-links');
 
-// --- LÓGICA DE INTERAÇÃO (Adicionar/Remover) ---
+    if (mobileMenuBtn && menuLinks) {
+        mobileMenuBtn.addEventListener('click', () => {
+            menuLinks.classList.toggle('active');
+        });
+    }
 
-function addItem(id, name, type) {
-    const item = { id, name };
-    if (type === 'cart') {
-        cartItems.push(item);
+    // LÓGICA DO CARRINHO (ABRIR/FECHAR) 
+    const btnCarrinho = document.getElementById('cartButton');
+    const dropdownCarrinho = document.getElementById('cartDropdown');
+    const listaCarrinho = document.getElementById('cartList');
+
+    if (btnCarrinho && dropdownCarrinho) {
+        btnCarrinho.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (dropdownCarrinho.style.display === 'block') {
+                dropdownCarrinho.style.display = 'none';
+            } else {
+                dropdownCarrinho.style.display = 'block';
+            }
+        });
+
+        // Fechar ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!btnCarrinho.contains(e.target) && !dropdownCarrinho.contains(e.target)) {
+                dropdownCarrinho.style.display = 'none';
+            }
+        });
+    }
+
+    // FUNÇÕES DO CARRINHO (ADICIONAR/REMOVER) ---
+    
+    // Função para atualizar o visual da lista
+    function renderCart() {
+        if (!listaCarrinho) return;
+
+        if (cartItems.length === 0) {
+            listaCarrinho.innerHTML = '<p style="text-align: center; color: #fff;">Carrinho vazio.</p>';
+            return;
+        }
+
+        // Gera o HTML de cada item
+        listaCarrinho.innerHTML = cartItems.map((item, index) => `
+            <div class="dropdown-item" style="display: flex; justify-content: space-between; margin-bottom: 10px; color: white;">
+                <span>${item.name}</span>
+                <button class="remove-btn" data-index="${index}" style="background: red; color: white; border: none; cursor: pointer; border-radius: 4px;">X</button>
+            </div>
+        `).join('');
+
+        // Reativa os botões de remover
+        const removeButtons = listaCarrinho.querySelectorAll('.remove-btn');
+        removeButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const indexToRemove = this.getAttribute('data-index');
+                removeItem(indexToRemove);
+            });
+        });
+    }
+
+    // Função Global para Adicionar Item
+    window.addItem = function(id, name) {
+        // Adiciona ao array
+        cartItems.push({ id, name });
+        
+        // Atualiza a lista visual
         renderCart();
-        if(cartDropdown) cartDropdown.style.display = 'block';
-        if(favDropdown) favDropdown.style.display = 'none';
-    } else if (type === 'fav') {
-        if (!favItems.some(i => i.id === id)) {
-            favItems.push(item);
-            renderFav();
+        
+        // Abre o carrinho automaticamente para mostrar que funcionou
+        if (dropdownCarrinho) {
+            dropdownCarrinho.style.display = 'block';
         }
-        if(favDropdown) favDropdown.style.display = 'block';
-        if(cartDropdown) cartDropdown.style.display = 'none';
-    }
-}
+    };
 
-function removeItem(event) {
-    const button = event.target;
-    const id = button.getAttribute('data-id');
-    const type = button.getAttribute('data-type');
+    // Função para Remover Item
+    function removeItem(index) {
+        cartItems.splice(index, 1); 
+    }
+
+    // CARROSSEL E BOTÕES DE COMPRA ---
     
-    if (type === 'cart') {
-        const index = cartItems.findIndex(item => item.id === id);
-        if (index > -1) {
-            cartItems.splice(index, 1);
-            renderCart();
+    function setupCarousel(carouselId) {
+        const carousel = document.getElementById(carouselId);
+        if (!carousel) return;
+
+        // Injeta os botões de "Adicionar" em cada item
+        const items = carousel.querySelectorAll('.item');
+        items.forEach(item => {
+            const actionsContainer = item.querySelector('.item-actions');
+            const id = item.getAttribute('data-id');
+            const name = item.getAttribute('data-name');
+
+            // HTML do botão de carrinho
+            if (actionsContainer) {
+                actionsContainer.innerHTML = `
+                    <button class="action-btn cart-action" title="Adicionar ao Carrinho">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </button>
+                `;
+
+                // Adiciona o clique no botão que acabamos de criar
+                const btnAdd = actionsContainer.querySelector('.cart-action');
+                if (btnAdd) {
+                    btnAdd.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Não deixa clicar na foto do produto
+                        addItem(id, name);   // Chama a função de adicionar
+                    });
+                }
+            }
+        });
+
+        //  Botões de Navegação (Setinhas)
+        const wrap = carousel.parentElement;
+        const prevBtn = wrap.querySelector('[data-action="prev"]');
+        const nextBtn = wrap.querySelector('[data-action="next"]');
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+            nextBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: 300, behavior: 'smooth' });
+            });
         }
-    } else if (type === 'fav') {
-        favItems = favItems.filter(item => item.id !== id);
-        renderFav();
     }
-}
 
-// --- LÓGICA DE ABERTURA DOS DROPDOWNS ---
+    // Inicializa todos os carrosseis
+    setupCarousel('carousel1');
+    setupCarousel('carousel2');
+    setupCarousel('carousel3');
 
-function toggleDropdown(dropdownToToggle, otherDropdown) {
-    if(!dropdownToToggle) return;
-    const isVisible = dropdownToToggle.style.display === "block";
-    dropdownToToggle.style.display = isVisible ? "none" : "block";
-    if(otherDropdown) otherDropdown.style.display = "none";
-}
-
-if(cartButton) {
-    cartButton.addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleDropdown(cartDropdown, favDropdown);
-    });
-}
-
-if(favButton) {
-    favButton.addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleDropdown(favDropdown, cartDropdown);
-    });
-}
-
-// Fecha tudo ao clicar fora
-document.addEventListener("click", (e) => {
-    if (cartButton && cartDropdown && !cartButton.contains(e.target) && !cartDropdown.contains(e.target)) {
-        cartDropdown.style.display = "none";
-    }
-    if (favButton && favDropdown && !favButton.contains(e.target) && !favDropdown.contains(e.target)) {
-        favDropdown.style.display = "none";
-    }
+    // Inicializa o carrinho vazio
+    renderCart();
 });
-
 
 // --- LÓGICA DO CARROSSEL ---
 
@@ -133,7 +149,7 @@ function initializeItemActions(carousel) {
         const id = item.getAttribute('data-id');
         const name = item.getAttribute('data-name');
 
-
+        // Cria o botão de Adicionar ao Carrinho
         const cartHtml = `
             <button class="action-btn cart-action" title="Adicionar ao Carrinho">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -142,7 +158,7 @@ function initializeItemActions(carousel) {
 
         actionsContainer.innerHTML = cartHtml;
 
-        // Adiciona evento apenas para o botão do carrinho
+        // Adiciona evento para o botão do carrinho
         const btnCart = actionsContainer.querySelector('.cart-action');
         if(btnCart){
             btnCart.addEventListener('click', (e) => {
@@ -158,11 +174,8 @@ function setupCarouselScroll(id) {
     if (!carousel) return; 
     const wrap = carousel.parentElement;
 
+    // Inicializa os botões de ação (Carrinho) nos itens
     initializeItemActions(carousel);
-
-    wrap.querySelectorAll('.btn-nav').forEach(btn => {
-       
-    });
 
     // Seletor genérico para os botões de navegação (prev/next) dentro do wrap
     const navButtons = wrap.querySelectorAll('button[data-action]');
@@ -172,11 +185,14 @@ function setupCarouselScroll(id) {
             const firstItem = carousel.querySelector('.item');
             if (!firstItem) return;
 
-            const gap = parseFloat(getComputedStyle(carousel).gap || '0');
+            // Pega o valor do CSS Custom Property --gap
+            const rootStyle = getComputedStyle(document.documentElement);
+            const gap = parseFloat(rootStyle.getPropertyValue('--gap')) || 0;
+            
             const itemWidth = firstItem.getBoundingClientRect().width;
             const singleSlideWidth = itemWidth + gap;
             
-            // AQUI ESTÁ A MUDANÇA: Sempre rola 3 itens
+            // Rola 3 itens 
             const multiplier = 3; 
             const scrollAmount = singleSlideWidth * multiplier;
 
@@ -193,8 +209,18 @@ function setupCarouselScroll(id) {
 window.onload = function() {
     setupCarouselScroll('carousel1');
     setupCarouselScroll('carousel2');
-    setupCarouselScroll('carousel3'); // Remova se não tiver o carousel3 no HTML
+    setupCarouselScroll('carousel3'); 
     
     renderCart();
-    renderFav();
 };
+
+//  MENU MOBILE (HAMBÚRGUER) ---
+const mobileMenuBtn = document.getElementById('mobile-menu');
+const menuLinks = document.getElementById('menu-links');
+
+if (mobileMenuBtn && menuLinks) {
+    mobileMenuBtn.addEventListener('click', () => {
+        // Isso aqui adiciona ou remove a classe "active" do CSS acima
+        menuLinks.classList.toggle('active');
+    });
+}

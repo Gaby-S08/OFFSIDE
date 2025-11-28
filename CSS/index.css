@@ -4,7 +4,6 @@
   --header-bg: rgba(255, 255, 255, 0.05);
   --dropdown-bg: #000000;
   --text-color: #ffffff;
-  --muted: #888;
 }
 *{
   box-sizing:border-box;
@@ -24,13 +23,20 @@ a{
 }
 
 /* Header */
+.navbar {
+    min-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
 header.cabecalho{
   width:100%;
   background:#000000;
   position:sticky; 
   top: 0; 
   border-bottom:1px solid rgb(218, 218, 218);
-    z-index: 9999;        /* garante que fique acima de todo conteúdo */
+  z-index: 9999;        /* garante que fique acima de todo conteúdo */
 }
 .navegacao{
   max-width:1200px;
@@ -39,17 +45,30 @@ header.cabecalho{
   align-items:center;
   justify-content: space-between;
   padding:35px;
+  position: relative;
 }
-.menu{
-  display:flex; 
-  gap:22px;
-  align-items:center;
+
+.menu {
+  display: flex; 
+  gap: 8px; 
+  align-items: center;
 }
-.menu a{
-  font-size:15px;
-  color:rgb(255, 255, 255);
-  font-weight:600
+.menu a {
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  padding: 10px 15px;       /* Cria o espaço fixo ao redor do texto */
+  border-radius: 8px;       /* Arredonda as pontas */
+  transition: background 0.2s ease; /* Animação suave */
+  text-decoration: none;    /* Remove o sublinhado padrão */
 }
+.menu a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+    .menu.active {
+        display: flex !important; /* O !important força ele a aparecer */
+    }
+
 .buscar {
   max-width: 400px;       /* largura máxima */
   margin: 0 auto;         /* centraliza horizontalmente */
@@ -92,13 +111,13 @@ header.cabecalho{
   cursor:pointer;
 }
 /* DROPDOWN CARRINHO */
-.cart-icon {
+.cart-icon, .simbolos a {
     cursor: pointer;
     padding: 10px;
     transition: background 0.2s ease;
     border-radius: 8px;
 }
-.cart-icon:hover {
+.cart-icon:hover, .simbolos a:hover{
     background: rgba(255, 255, 255, 0.15);
 }
 .cart-icon svg {
@@ -194,6 +213,7 @@ header.cabecalho{
   flex-direction:column;
   align-items:center;
   gap:12px;
+  transition: all 0.3s ease;
 }
 .colecao img{
   width:100%;
@@ -203,11 +223,6 @@ header.cabecalho{
 .colecao-card:hover{
   transform:translateY(-8px);
   box-shadow:0 8px 28px rgba(0,0,0,0.6)
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 
@@ -372,79 +387,67 @@ h2 {
     stroke-linejoin: round;
 }
 
-.fav-action svg {
-    /* O coração precisa de cor, mas o botão usa stroke */
-    /* Este CSS é para o ícone de coração do item, que é diferente do header */
-    stroke: #ff4d4d;
-    fill: #ff4d4d; /* Coração preenchido */
+/* --- SEÇÃO LOJA / MAPA --- */
+
+.loja {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    /* Adicionamos padding para não colar nas bordas em telas menores */
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Estilo padrão para o Mapa e a Imagem */
+/* --- SEÇÃO LOJA / LOCALIZAÇÃO (CSS FINAL) --- */
+/* --- CORREÇÃO DEFINITIVA DO MAPA E FOTO --- */
+
+.loja {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px; /* Um pouco mais de espaço em cima e embaixo */
+}
+
+/* Força os dois a terem EXATAMENTE o mesmo tamanho no PC */
+.loja iframe, 
+.loja img {
+    /* O !important obriga o navegador a aceitar este tamanho */
+    width: 500px !important;  
+    height: 400px !important; 
+    
+    /* Estilos visuais */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    border: none;
+    
+    /* Garante que a imagem não estique/distorça */
+    object-fit: cover;
+    display: block;
 }
 
 
-/* --- RESPONSIVIDADE DO CARROSSEL --- */
-@media (min-width: 600px) {
-    .carousel {
-        grid-auto-columns: calc((100% - var(--gap)) / 2);
-    }
+.localizacao {
+  text-align: center;
 }
 
-@media (min-width: 900px) {
-    .carousel {
-        grid-auto-columns: calc((100% - (2 * var(--gap))) / 3);
-    }
-    .item:hover {
-        transform: translateY(-5px);
-    }
-}
-
-/* --- RESPONSIVIDADE DO CARROSSEL --- */
-@media (min-width: 600px) {
-  .carousel {
-    grid-auto-columns: calc((100% - var(--gap)) / 2);
-  }
-}
-
-@media (min-width: 900px) {
-  .carousel {
-    grid-auto-columns: calc((100% - (2 * var(--gap))) / 3);
-  }
-  .item:hover {
-      transform: translateY(-5px);
-  }
-}
-
-
-/* LOJA */
-.loja{max-width:1200px;margin:30px auto;padding:18px 20px}
-.loja-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
-.loja-thumb{height:220px;background:#222;border-radius:8px}
-
-f/* ...continuação do seu código CSS... */
 
 footer {
     margin-top: 32px;
     padding: 18px;
     background: #070707;
     text-align: center;
-    color: var(--muted);
+    color: #fff;
     font-size: 13px;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.766);
 }
 
 /* RESPONSIVO */
-@media (max-width: 980px) {
-    .colecoes-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .loja-grid {
-        grid-template-columns: 1fr;
-    }
-    .navegacao {
-        padding: 20px; /* Reduz padding em telas menores */
-    }
-    .menu {
-        display: none; /* Esconde menu em telas pequenas (sugestão: implementar menu hambúrguer depois) */
-    }
-}
 
 @media (max-width: 650px) {
     .colecoes-grid {
@@ -467,9 +470,143 @@ footer {
     }
     
     /* Ajuste do dropdown para não vazar a tela no mobile */
-    .cart-dropdown, .fav-dropdown {
+    .cart-dropdown  {
         width: 90%;
         right: 5%;
         left: 5%;
+    }
+}
+
+/* --- RESPONSIVIDADE DO CARROSSEL --- */
+@media (min-width: 600px) {
+    .carousel {
+        grid-auto-columns: calc((100% - var(--gap)) / 2);
+    }
+}
+
+@media (min-width: 900px) {
+    .carousel {
+        grid-auto-columns: calc((100% - (2 * var(--gap))) / 3);
+    }
+    .item:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* --- CORREÇÕES GERAIS DE RESPONSIVIDADE --- */
+
+/* 1. Tornar Imagens e Iframes Flexíveis (Essencial para a seção Loja) */
+iframe, 
+.loja img,
+.destaque-img {
+    max-width: 100%; /* Nunca ultrapassa a largura da tela */
+    width: 100%;     /* Tenta ocupar todo o espaço disponível */
+    height: auto;    /* Mantém a proporção */
+}
+
+/* Ajuste específico para o iframe do mapa manter altura boa no mobile */
+iframe {
+    height: 300px; 
+}
+
+/* Ocultar o botão do menu mobile em telas grandes */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+/* --- RESPONSIVIDADE MENU  */
+@media (max-width: 768px) {
+    
+    .navegacao {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap; 
+        padding: 10px 15px;
+        gap: 10px; /* Espaço mínimo entre os elementos */
+    }
+
+    /* Botão hamnurguer */
+    .menu-toggle {
+        display: block;
+        order: 1;
+        flex-shrink: 0; /* Garante que o botão não seja esmagado */
+    }
+
+    /* Barra de Busca */
+    .buscar {
+        order: 2;
+        flex-grow: 1; /* Ocupa todo o espaço disponível no meio */
+        margin: 0;    
+        width: auto; 
+        max-width: none;
+    }
+    /* Ajuste fino para o input não quebrar o layout */
+    .buscar form {
+        width: 100%;
+    }
+    .buscar input {
+        width: 100%;
+        min-width: 0; /* Importante para flexbox não travar */
+        font-size: 13px; 
+    }
+    
+    .buscar button {
+        padding: 0 5px;
+    }
+
+    /* Ícones */
+    .simbolos {
+        order: 3;
+        flex-shrink: 0; /* Garante que os ícones não sejam esmagados */
+        display: flex;
+        gap: 8px; /* Aproxima um pouco o carrinho do login */
+    }
+
+    /* Ajuste para ícones menores no mobile para não brigar com a busca */
+    .simbolos .icones, 
+    .cart-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Menu Dropdown (Links) */
+    .menu {
+        position: absolute; /* Sai do fluxo para não ocupar espaço na barra */
+        top: 70px; /* Altura do header */
+        left: 0;
+        width: 100%;
+        background: #000;
+        flex-direction: column;
+        display: none; /* Escondido por padrão */
+        z-index: 1000;
+        border-top: 1px solid #333;
+    }
+
+    .menu.active {
+        display: flex;
+    }
+    
+    .menu a {
+        padding: 15px;
+        border-bottom: 1px solid #222;
+        text-align: center;
+    }
+
+/* LOCALIZAÇÃO*/
+        
+    .loja {
+        flex-direction: column; /* Um em cima do outro */
+        padding: 20px;
+    }
+
+    /* No celular, removemos a largura fixa e deixamos ocupar 100% */
+    .loja iframe, 
+    .loja img {
+        width: 100% !important;
+        height: 300px !important; /* Altura fixa menor para celular */
+        max-width: 100%;
     }
 }
